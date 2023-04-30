@@ -2,6 +2,11 @@ import {ApolloServer, gql} from "apollo-server";
 
 // graphQL schema
 const typeDefs = gql`
+  type Movie {
+    id: Int
+    title: string
+    year: Int
+  }
   type Query {
     hello:String
   }
