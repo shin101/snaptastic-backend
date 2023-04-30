@@ -1,0 +1,7 @@
+// Babel - compiler so that even if a user uses a different version of NodeJS it will work on your browser
+
+// Then change package.json scripts to "dev": "nodemon --exec babel-node server"
+
+{
+    "presets": ["@babel/preset-env"]
+}

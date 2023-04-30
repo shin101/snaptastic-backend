@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": ""
+    "dev": "nodemon --exec babel-node server"
   },
   "repository": {
     "type": "git",
@@ -14,5 +14,16 @@
   "bugs": {
     "url": "https://github.com/shin101/snaptastic-backend/issues"
   },
-  "homepage": "https://github.com/shin101/snaptastic-backend#readme"
+  "homepage": "https://github.com/shin101/snaptastic-backend#readme",
+  "dependencies": {
+    "apollo-server": "^3.12.0",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.5",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.5",
+    "nodemon": "^2.0.22",
+    "prisma": "^4.13.0"
+  }
 }
