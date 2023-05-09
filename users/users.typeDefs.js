@@ -13,7 +13,7 @@ type User{
 }
 type LoginResult {
   ok: Boolean!
-  oken: String
+  token: String
   error: String
 }
 type Mutation {
@@ -25,6 +25,7 @@ type Mutation {
     password: String!
   ): User
   login(username:String!, password:String!): LoginResult!
+
 }
 
   type Query{
