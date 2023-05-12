@@ -6,15 +6,15 @@ import client from "../../client";
 export default {
   Mutation: {
     editProfile: async (_, {
-      firstName, lastName, username, email, password:newPassword, token }) => {
-        const { id } = await jwt.verify(token, process.env.SECRET_KEY)
+      firstName, lastName, username, email, password:newPassword }, { loggedInUser }) => {
+        console.log(loggedInUser)
         let hashedPw = null;
         if(newPassword){
           hashedPw = await bcrypt.hash(newPassword, 10);
         }
         const updatedUser = await client.user.update({
           where:{
-            id
+            id: loggedInUser.id,
           }, 
           data:{
             firstName, lastName, username, email, ...(hashedPw && {password: hashedPw}),
