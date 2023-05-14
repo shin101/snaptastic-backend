@@ -2,7 +2,7 @@
 require('dotenv').config();
 import { ApolloServer } from "apollo-server";
 import { typeDefs, resolvers } from "./schema";
-import { getUser } from "./users/users.utils";
+import { getUser, protectResolver } from "./users/users.utils";
 
 
 const server = new ApolloServer({
@@ -12,6 +12,7 @@ const server = new ApolloServer({
     console.log(req.headers);
     return {
       loggedInUser: await getUser(req.headers.token),
+      protectResolver,
     }
   }
 });
