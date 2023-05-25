@@ -4,6 +4,7 @@ export default gql`
   type CreateAccountResult {
     ok: Boolean!
     error: String
+    firstName: String
   }
   type Mutation {
     createAccount(
@@ -12,6 +13,6 @@ export default gql`
       username: String!
       email: String!
       password: String!
-    ): CreateAccountResult!
+    ): CreateAccountResult
   }
 `;
