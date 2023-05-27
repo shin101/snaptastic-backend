@@ -3,7 +3,6 @@ require("dotenv").config();
 import { ApolloServer } from "apollo-server";
 import { typeDefs, resolvers } from "./schema";
 import { getUser, protectResolver } from "./users/users.utils";
-import createAccountResolvers from "./users/createAccount/createAccount.resolvers";
 
 const server = new ApolloServer({
   typeDefs,
