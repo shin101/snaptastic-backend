@@ -1,20 +1,30 @@
-// must require dotenv before importing anything else
 require("dotenv").config();
-import { ApolloServer } from "apollo-server";
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
-import { getUser, protectResolver } from "./users/users.utils";
+import { getUser } from "./users/users.utils";
+import logger from "morgan";
+
+const app = express();
+const PORT = process.env.PORT || 4000;
+app.use(logger("tiny"));
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({ req }) => {
     return {
-      loggedInUser: await getUser(req.headers.token),
-      protectResolver,
+      loggedInUser: await getUser(req.headers.authorization),
     };
   },
 });
 
-server
-  .listen()
-  .then(() => console.log("Sever is running on http://localhost:4000/"));
+server.start().then(() => {
+  server.applyMiddleware({ app });
+});
+
+app.listen({ port: PORT }, () => {
+  console.log(
+    `🚀 Server is running on http://localhost:${PORT}${server.graphqlPath} ✅`
+  );
+});
