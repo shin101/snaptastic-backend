@@ -8,6 +8,7 @@ import logger from "morgan";
 const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(logger("tiny"));
+app.use("/static", express.static("uploads"));
 
 const server = new ApolloServer({
   typeDefs,
