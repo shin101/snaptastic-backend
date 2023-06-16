@@ -26,6 +26,3 @@ export default {
     },
   },
 };
---array.forEach(element => {
-  
-});

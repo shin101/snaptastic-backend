@@ -1,3 +1,5 @@
+import { gql } from "apollo-server-express";
+
 export default gql`
   type SeeFollowersResult {
     ok: Boolean!
@@ -9,3 +11,4 @@ export default gql`
     seeFollowers(usenamr: String!, page: Int!): SeeFollowersResult!
   }
 `;
+

@@ -1,3 +1,5 @@
+import { gql } from "apollo-server-express";
+
 export default gql`
   type SeeFollowingResult {
     ok: Boolean!
@@ -9,3 +11,4 @@ export default gql`
     seeFollowing(username: String!, lastId: Int): SeeFollowingResult
   }
 `;
+
