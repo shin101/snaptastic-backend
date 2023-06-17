@@ -3,7 +3,7 @@ import { gql } from "apollo-server";
 // we don't need to store password in graphQL, just in prisma
 export default gql`
   type User {
-    id: String!
+    id: Int!
     firstName: String!
     lastName: String
     username: String!
