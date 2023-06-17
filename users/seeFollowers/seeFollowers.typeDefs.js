@@ -8,6 +8,6 @@ export default gql`
     totalPages: Int
   }
   type Query {
-    seeFollowers(usenamr: String!, lastId: Int!): SeeFollowersResult!
+    seeFollowers(username: String!, lastId: Int!): SeeFollowersResult!
   }
 `;
