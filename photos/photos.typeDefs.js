@@ -9,6 +9,7 @@ export default gql`
     hashtags: [Hashtag]
     createdAt: String!
     updatedAt: String!
+    likes: Int!
   }
   type Hashtag {
     id: Int!
