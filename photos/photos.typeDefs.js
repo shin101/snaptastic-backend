@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-express";
- 
+
 export default gql`
   type Photo {
     id: Int!
@@ -15,6 +15,12 @@ export default gql`
     hashtag: String!
     photos(page: Int!): [Photo]
     totalPhotos: Int!
+    createdAt: String!
+    updatedAt: String!
+  }
+  type Like {
+    id: Int!
+    photo: Photo!
     createdAt: String!
     updatedAt: String!
   }
