@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "prebuild": "npm install --global @babel/cli @babel/core",
+    "prebuild": "npm install && npm install --save-dev @babel/cli @babel/core",
     "dev": "nodemon --exec babel-node src/server --delay 2",
     "migrate": "npx prisma migrate dev --preview-feature",
     "studio": "npx prisma studio",
