@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon --exec babel-node server --delay 2",
+    "dev": "nodemon --exec babel-node src/server --delay 2",
     "migrate": "npx prisma migrate dev --preview-feature",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "build": "babel src --out-dir build",
+    "start": "node build/server"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   },
   "homepage": "https://github.com/shin101/snaptastic-backend#readme",
   "dependencies": {
+    "@babel/cli": "^7.22.5",
     "@graphql-tools/load-files": "^6.6.1",
     "@graphql-tools/merge": "^8.4.1",
     "@prisma/client": "^4.13.0",
@@ -34,6 +37,7 @@
   "devDependencies": {
     "@babel/core": "^7.21.5",
     "@babel/node": "^7.20.7",
+    "@babel/plugin-transform-runtime": "^7.22.5",
     "@babel/preset-env": "^7.21.5",
     "nodemon": "^2.0.22",
     "prisma": "^4.13.0"
