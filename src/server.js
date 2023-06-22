@@ -4,11 +4,13 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
 import logger from "morgan";
+import cors from "cors"; 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(logger("tiny"));
 app.use("/static", express.static("uploads"));
+app.use(cors());
 
 const server = new ApolloServer({
   typeDefs,
