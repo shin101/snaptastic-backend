@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
 import logger from "morgan";
-import cors from "cors"; 
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -15,7 +15,8 @@ app.use(cors());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  playground:true,
+  playground: true,
+  introspection: true,
   context: async ({ req }) => {
     return {
       loggedInUser: await getUser(req.headers.authorization),
