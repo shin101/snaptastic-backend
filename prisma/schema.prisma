@@ -25,7 +25,7 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   likes     Like[]
-  comments   Comment[]
+  comments  Comment[]
 }
 
 model Photo {
@@ -39,7 +39,7 @@ model Photo {
   Hashtag   Hashtag?  @relation(fields: [hashtagId], references: [id])
   hashtagId Int?
   likes     Like[]
-  comments   Comment[]
+  comments  Comment[]
 }
 
 model Hashtag {
@@ -52,8 +52,8 @@ model Hashtag {
 
 model Like {
   id        Int      @id @default(autoincrement())
-  photo     Photo    @relation(fields: [photoId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+  photo     Photo    @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   photoId   Int
@@ -64,8 +64,8 @@ model Like {
 
 model Comment {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  photo     Photo    @relation(fields: [photoId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  photo     Photo    @relation(fields: [photoId], references: [id], onDelete: Cascade)
   payload   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
