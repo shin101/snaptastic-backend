@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 4000;
 app.use(logger("tiny"));
 app.use("/static", express.static("uploads"));
 app.use(cors());
+app.use(graphqlUploadExpress());
 
 const server = new ApolloServer({
   typeDefs,

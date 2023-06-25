@@ -9,16 +9,17 @@ const resolverFn = async (
 ) => {
   let avatarUrl = null;
   if (avatar) {
-    const { filename, createReadStream } = await avatar;
-    const newFilename = `${loggedInUser.id}-${Date.now()}`;
-    const readStream = createReadStream();
-    const writeStream = createWriteStream(
-      process.cwd() + "/uploads/" + newFilename
-    );
-    readStream.pipe(writeStream);
-    avatarUrl = `http://localhost:4000/static/${newFilename}`;
+    avatarUrl = await uploadPhoto(avatar, loggedInUser.id);
+    
+    // const { filename, createReadStream } = await avatar;
+    // const newFilename = `${loggedInUser.id}-${Date.now()}`;
+    // const readStream = createReadStream();
+    // const writeStream = createWriteStream(
+    //   process.cwd() + "/uploads/" + newFilename
+    // );
+    // readStream.pipe(writeStream);
+    // avatarUrl = `http://localhost:4000/static/${newFilename}`;
   }
-
 
   let uglyPassword = null;
   if (newPassword) {
@@ -35,7 +36,7 @@ const resolverFn = async (
       email,
       bio,
       ...(uglyPassword && { password: uglyPassword }),
-      ...(avatarUrl && {avatar: avatarUrl})
+      ...(avatarUrl && { avatar: avatarUrl }),
     },
   });
   if (updatedUser.id) {
