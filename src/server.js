@@ -1,4 +1,5 @@
 require("dotenv").config();
+// requiring dotenv will allow you to use process. in the code like process.env.PORT for instance
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
