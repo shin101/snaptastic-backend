@@ -10,6 +10,6 @@ export default gql`
       payload: String!
       roomId: Int
       userId: Int
-    ): sendMessageResponse!
+    ): sendMessageResponse
   }
 `;
