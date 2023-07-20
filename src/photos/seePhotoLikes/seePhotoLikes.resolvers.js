@@ -9,7 +9,7 @@ export default {
           user: true,
         },
       });
-      return likes.map((like = like.user));
+      return likes.map((like) => like.user);
     },
   },
 };
