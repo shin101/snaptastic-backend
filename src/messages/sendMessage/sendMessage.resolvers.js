@@ -1,5 +1,6 @@
 import client from "../../client";
 import { protectedResolver } from "../../users/users.utils";
+import pubsub from "../../../pubsub";
 
 export default {
   Mutation: {
@@ -35,7 +36,7 @@ export default {
               error: "room not found",
             };
         }
-        await client.message.create({
+        const message = await client.message.create({
           data: {
             payload,
             room: {
@@ -46,6 +47,7 @@ export default {
             },
           },
         });
+        pubsub.publish("New Message", { roomUpdates: { ...message } });
         return {
           ok: true,
         };
