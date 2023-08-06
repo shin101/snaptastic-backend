@@ -6,84 +6,59 @@ import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
 import logger from "morgan";
 import cors from "cors";
+import { createServer } from "http";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-app.use(logger("tiny"));
-app.use("/static", express.static("uploads"));
-app.use(cors());
+// app.use(logger("tiny"));
+// app.use("/static", express.static("uploads"));
+// app.use(cors());
+
+const httpServer = createServer(app);
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   context: async ({ req }) => {
-    return {
-      loggedInUser: await getUser(req.headers.token),
-    };
+    if (req) {
+      return {
+        loggedInUser: await getUser(req.headers.token),
+      };
+    }
   },
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
 });
 
-server.start().then(() => {
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  // try path: '/static' if it doesnt work
+  path: "/graphql",
+});
+
+const serverCleanup = useServer({ schema }, wsServer);
+
+const startServer = async () => {
+  await server.start();
   server.applyMiddleware({ app });
-});
+  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+};
 
-app.listen({ port: PORT }, () => {
-  console.log(
-    `🚀 Server is running on http://localhost:${PORT}${server.graphqlPath} ✅`
-  );
-});
-
-
-
-// require("dotenv").config();
-// import express from "express";
-// import logger from "morgan";
-// import { ApolloServer, PubSub } from "apollo-server-express";
-// import { typeDefs, resolvers } from "./schema";
-// import { getUser } from "./users/users.utils";
-// import http from "http";
-// import { execute, subscribe } from "graphql";
-// import { SubscriptionServer } from "subscriptions-transport-ws";
-
-// const PORT = process.env.PORT;
-// const pubsub = new PubSub();
-// const apollo = new ApolloServer({
-//   resolvers,
-//   typeDefs,
-//   context: async ({ req }) => {
-//     return {
-//       loggedInUser: await getUser(req.headers.token),
-//       pubsub,
-//     };
-//   },
-// });
-
-// const app = express();
-// app.use(logger("tiny"));
-// apollo.applyMiddleware({ app });
-
-// const httpServer = http.createServer(app);
-// apollo.installSubscriptionHandlers(httpServer);
-
-// httpServer.listen(PORT, () => {
-//   console.log(`🚀Server is running on http://localhost:${PORT} ✅`);
-
-//   // Create a WebSocket server for subscriptions
-//   new SubscriptionServer(
-//     {
-//       execute,
-//       subscribe,
-//       schema: apollo.schema,
-//       onConnect: async (connectionParams, webSocket) => {
-//         const loggedInUser = await getUser(connectionParams.token);
-//         return {
-//           loggedInUser,
-//         };
-//       },
-//     },
-//     {
-//       server: httpServer,
-//       path: apollo.graphqlPath,
-//     }
-//   );
-// })
+startServer().catch((err) => console.error("Error starting the server:", err));
