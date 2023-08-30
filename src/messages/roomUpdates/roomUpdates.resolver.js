@@ -1,4 +1,4 @@
-import pubsub from "../../../pubsub";
+import pubsub from "../../pubsub";
 import { withFilter } from "apollo-server";
 import client from "../../client";
 
@@ -9,7 +9,6 @@ import client from "../../client";
 //     },
 //   },
 // };
-
 
 export default {
   Subscription: {
