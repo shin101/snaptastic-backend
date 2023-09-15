@@ -8,7 +8,17 @@ export default {
         take: 2,
         skip: offset,
         where: {
-         user: {username: {in:['surreal_images', 'aapplee', 'appleeee', 'hello', 'starrrr']}}
+          user: {
+            username: {
+              in: [
+                "surreal_images",
+                "explore-california",
+                "appleeee",
+                "hello",
+                "starrrr",
+              ],
+            },
+          },
         },
         orderBy: { createdAt: "desc" },
       })
