@@ -47,6 +47,7 @@ export default {
           ok: true,
         };
       } catch (e) {
+
         return { ok: false, error: "Cant create account." };
       }
     },

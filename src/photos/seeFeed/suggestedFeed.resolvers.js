@@ -11,7 +11,8 @@ export default {
           user: {
             username: {
               in: [
-                "fitness-inspo",
+                "NY-Life",
+                "inspo-quotes",
                 "explore-california"
               ],
             },
