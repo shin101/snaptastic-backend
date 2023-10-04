@@ -3,7 +3,7 @@ import { protectedResolver } from "../../users/users.utils";
 
 export default {
   Query: {
-    seeSuggested: protectedResolver((_, { offset }, { loggedInUser }) =>
+    seeSuggested: protectedResolver((_, { offset }) =>
       client.photo.findMany({
         // take: 2,
         skip: offset,

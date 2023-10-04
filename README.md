@@ -13,7 +13,7 @@ https://snaptastic-kendra.netlify.app/
 
 ## Mobile App
 
-<img src="https://github.com/shin101/snaptastic-web/blob/main/public/images/mobile.gif?raw=true" alt="app demo"  />
+<img src="https://github.com/shin101/snaptastic-web/blob/main/public/images/mobile.gif?raw=true" alt="app demo" width="330px" height="600px" />
 
 ## Features
 
