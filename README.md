@@ -60,12 +60,12 @@ https://snaptastic-kendra.netlify.app/
 
 ### Front-end
 
--React
--Typescript
--NextJS (In progress)
--Apollo Client
--GraphQL
--Styled Components
+- React
+- Typescript
+- NextJS (In progress)
+- Apollo Client
+- GraphQL
+- Styled Components
 
 ### Backend
 
